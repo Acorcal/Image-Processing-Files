@@ -24,13 +24,8 @@ plt.rcParams['figure.autolayout'] = True
 # for i in range(0, n):
 #     ih[i] = int(i)
 
-# When run, user input is requested in which the user can copy and paste the file path
-# The file is then adjusted into a useable format
-
-# User inputs folder
-# Sort folders by type into respective arrays
-# run calcHist
-# Begin calculations
+# This function takes the files in the folder, converts each one to a histogram, and then stores it into
+# an associated array of histogram values
 
 def file_handling():
     # Create lists for organization
@@ -42,6 +37,7 @@ def file_handling():
     h770 = 0
     h780 = 0
 
+    # Find the folder path and turn it into a useable format
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Construct the full path to the file
