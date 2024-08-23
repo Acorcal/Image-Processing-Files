@@ -1,7 +1,7 @@
 # importing required libraries
 import matplotlib.pyplot as plt
 import numpy as np
-import cv2 as poop
+import cv2 as cv
 import os
 from matplotlib.backends.backend_pdf import PdfPages
 
@@ -25,7 +25,7 @@ def file_handling():
     # Building adjustable bin index for histograms
 
     n = 256
-    ih = np.zeros(n, np.int32)
+    
     
     # Find the folder path and turn it into a useable format
 
@@ -40,16 +40,19 @@ def file_handling():
 
     for file in os.listdir(folder_path):
 
-        # Calculatre the histograms for each image manually
-        img_file = poop.imread(os.path.join(folder_path,file),0)
+        # Calculate the histograms for each image manually
+
+        ih = [0]*256
+        print(file)
+        img_file = cv.imread(os.path.join(folder_path,file),0)
         img_file_array = np.array(img_file)
-        rows, cols = img_file_array
+        rows, cols = img_file_array.shape
         for row in range(rows):
             for col in range(cols):
                 pixel = img_file_array[row,col]
                 ih[pixel] += 1
 
-        # h_img = poop.calcHist([img_file],[0],None,[256],[0,256])
+        # h_img = cv.calcHist([img_file],[0],None,[256],[0,256])
         # Sort the files by nanometers, this is specifed in the file name
         filename = os.fsdecode(file)
         if "760" in filename:
@@ -77,7 +80,9 @@ def file_handling():
     # print(len(h780_list))
 
 
-file_handling()
+result = file_handling()
+np.savetxt('histogram data.csv', (result), delimiter=',')
+print('done')
 ## Test for writing to .txt
 
     # hfile = open('histogram data.txt',"w")
